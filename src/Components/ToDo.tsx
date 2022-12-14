@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { IToDo, toDoState } from "../atoms";
+import { Categories, IToDo, toDoState } from "../atoms";
 
 function ToDo({ text, category, id }: IToDo) {
   // atom값을 수정
@@ -16,26 +16,30 @@ function ToDo({ text, category, id }: IToDo) {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
       // 2. 새로운 to do를 만들어서 원래의 todo를 업데이트 ⇒ 즉 새로운 category로 새로운 todo를 만들어야함
       const oldToDo = oldToDos[targetIndex];
-      const newToDo = { text, id, category: "name" };
+      const newToDo = { text, id, category: name as any };
       console.log(oldToDo, newToDo);
-      return oldToDos;
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1),
+      ];
     });
   };
   return (
     <li>
       <span>{text}</span>
-      {category !== "To_Do" && (
-        <button name="To_Do" onClick={onClick}>
+      {category !== Categories.To_Do && (
+        <button name={Categories.To_Do} onClick={onClick}>
           To Do
         </button>
       )}
-      {category !== "DOING" && (
-        <button name="DOING" onClick={onClick}>
+      {category !== Categories.DOING && (
+        <button name={Categories.DOING} onClick={onClick}>
           Doing
         </button>
       )}
-      {category !== "DONE" && (
-        <button name="DONE" onClick={onClick}>
+      {category !== Categories.DONE && (
+        <button name={Categories.DONE} onClick={onClick}>
           Done
         </button>
       )}
