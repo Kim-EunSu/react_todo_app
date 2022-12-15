@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { Categories, categoryState } from "../atoms";
+import styled from "styled-components";
 
 function CateGories() {
   // 현재의 값과 값을 수정하는 함수를 가져오는 훅 사용

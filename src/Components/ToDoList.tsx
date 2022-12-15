@@ -13,16 +13,73 @@ const Container = styled.div`
   margin: auto;
   padding: 50px;
   row-gap: 10px;
-  border: 3px solid black;
+
   h1 {
+    color: #d4a373;
     font-size: 30px;
     text-align: center;
     font-weight: 700;
-    border: 3px solid black;
   }
 `;
 
-const ToDoWrap = styled.div``;
+const ToDoWrap = styled.div`
+  select {
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 20px;
+    background: #fefae0;
+    -webkit-appearance: none; /* 크롬 화살표 없애기 */
+    -moz-appearance: none; /* 파이어폭스 화살표 없애기 */
+    appearance: none; /* 화살표 없애기 */
+  }
+  form {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    input {
+      width: 100%;
+      height: 40px;
+      border: 0;
+      padding: 0 20px;
+      border-radius: 20px;
+      background: #fefae0;
+    }
+  }
+  button {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+    align-content: center;
+    border: transparent;
+    background-color: transparent;
+  }
+`;
+
+const LiContainer = styled.div`
+  margin-top: 10px;
+  width: 100%;
+  background-color: #e9edc9;
+  padding: 40px 30px;
+  border-radius: 20px;
+  li {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    color: rgb(255, 255, 255);
+    margin-bottom: 15px;
+    padding: 15px 0px;
+    border-bottom: 3px dotted #66554e;
+
+    span {
+      color: #66554e;
+      font-size: 20px;
+    }
+  }
+`;
 
 function ToDoList() {
   // const [toDo, doing, done] = useRecoilValue(toDoSelector);
@@ -42,9 +99,11 @@ function ToDoList() {
           <Categories />
           <CreateToDo />
         </ToDoWrap>
-        {toDos?.map((toDo) => (
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
+        <LiContainer>
+          {toDos?.map((toDo) => (
+            <ToDo key={toDo.id} {...toDo} />
+          ))}
+        </LiContainer>
       </Container>
     </>
   );

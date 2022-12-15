@@ -1,4 +1,10 @@
 import { atom, selector } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+  key: "toDoLocal",
+  storage: localStorage,
+});
 
 // 이와같이 하면 타입을 변경할 수 있음 => 실제값 변경가능
 // => 이렇게 쓰면 enum은 string타입으로 변함
@@ -24,6 +30,7 @@ export const categoryState = atom<Categories>({
 export const toDoState = atom<IToDo[]>({
   key: "toDo",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 // selector이용

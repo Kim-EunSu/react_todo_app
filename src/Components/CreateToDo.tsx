@@ -25,10 +25,7 @@ function CreateToDo() {
   };
 
   return (
-    <form
-      style={{ display: "flex", flexDirection: "column" }}
-      onSubmit={handleSubmit(handleValid)}
-    >
+    <form onSubmit={handleSubmit(handleValid)}>
       <input
         {...register("toDo", { required: "글 작성을 해주세요" })}
         placeholder="글 작성하기"
