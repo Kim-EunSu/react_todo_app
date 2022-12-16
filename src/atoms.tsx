@@ -6,6 +6,11 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
+export const isDarkAtom = atom({
+  key: "isLight",
+  default: true,
+});
+
 // 이와같이 하면 타입을 변경할 수 있음 => 실제값 변경가능
 // => 이렇게 쓰면 enum은 string타입으로 변함
 export enum Categories {

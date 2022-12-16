@@ -30,7 +30,12 @@ function CreateToDo() {
         {...register("toDo", { required: "글 작성을 해주세요" })}
         placeholder="글 작성하기"
       ></input>
-      <button>add</button>
+      <button>
+        <img
+          src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/plus-round-icon.png"
+          alt="plus"
+        />
+      </button>
     </form>
   );
 }

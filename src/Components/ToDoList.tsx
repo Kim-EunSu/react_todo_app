@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Categories from "./Categories";
 import CreateToDo from "./CreateToDo";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import ToDo from "./ToDo";
-import { toDoSelector } from "../atoms";
+import { toDoSelector, isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   display: flex;
@@ -13,12 +13,26 @@ const Container = styled.div`
   margin: auto;
   padding: 50px;
   row-gap: 10px;
+`;
 
+const Header = styled.header`
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin-bottom: 30px;
   h1 {
-    color: #d4a373;
+    color: ${(props) => props.theme.titleColor};
     font-size: 30px;
     text-align: center;
     font-weight: 700;
+  }
+  button {
+    position: absolute;
+    background-color: transparent;
+    border: 0;
+    top: 0px;
+    font-size: 26px;
+    right: 0;
   }
 `;
 
@@ -29,7 +43,7 @@ const ToDoWrap = styled.div`
     padding: 0 20px;
     border: 0;
     border-radius: 20px;
-    background: #fefae0;
+    background: ${(props) => props.theme.bgColor1};
     -webkit-appearance: none; /* 크롬 화살표 없애기 */
     -moz-appearance: none; /* 파이어폭스 화살표 없애기 */
     appearance: none; /* 화살표 없애기 */
@@ -44,7 +58,7 @@ const ToDoWrap = styled.div`
       border: 0;
       padding: 0 20px;
       border-radius: 20px;
-      background: #fefae0;
+      background: ${(props) => props.theme.bgColor1};
     }
   }
   button {
@@ -56,13 +70,21 @@ const ToDoWrap = styled.div`
     align-content: center;
     border: transparent;
     background-color: transparent;
+    img {
+      position: absolute;
+      filter: opacity(0.5) drop-shadow(0 0 0 green);
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 
 const LiContainer = styled.div`
   margin-top: 10px;
   width: 100%;
-  background-color: #e9edc9;
+  background-color: ${(props) => props.theme.bgColor2};
   padding: 40px 30px;
   border-radius: 20px;
   li {
@@ -88,13 +110,23 @@ function ToDoList() {
   // selector은 toDo를 담은 일차원 배열을 반환
   const toDos = useRecoilValue(toDoSelector);
 
+  const [isLight, setIsLight] = useRecoilState(isDarkAtom);
+
   console.log(toDos);
 
   return (
     <>
       <Container>
-        <h1>ToDoList</h1>
-        <hr />
+        <Header>
+          <h1>ToDoList</h1>
+          <button
+            onClick={() => {
+              setIsLight((prev) => !prev);
+            }}
+          >
+            {isLight ? "☀️" : "🌙"}
+          </button>
+        </Header>
         <ToDoWrap>
           <Categories />
           <CreateToDo />
